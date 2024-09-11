@@ -75,7 +75,7 @@ export function HomePageNew1() {
     if (city) {
       fetchWeatherData();
     }
-  }, [city, fetchWeatherData]); // Added fetchWeatherData to dependencies
+  }, [city, fetchWeatherData]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -108,26 +108,26 @@ export function HomePageNew1() {
     >
       {/* Header */}
       <header
-        className="fixed top-0 left-0 w-full text-primary-foreground items-center bg-opacity-75 py-6 px-8 shadow-lg z-50 non-hover-glowing-button"
+        className="fixed top-0 left-0 w-full text-primary-foreground items-center bg-opacity-75 py-4 md:py-6 px-4 md:px-8 shadow-lg z-50 non-hover-glowing-button"
         style={{ background: temperatureColor }}
       >
-        <h1 className="text-2xl font-extrabold mono-font">Weather Dashboard</h1>
-        <br />
-        <div className="relative w-full flex items-center justify-left">
+        <h1 className="text-xl md:text-2xl font-extrabold mono-font">
+          Weather Dashboard
+        </h1>
+        <div className="relative w-full flex items-center justify-between">
           <div className="relative group">
-            <button className="mr-auto text-sm font-bold px-4 py-2 rounded-md shadow transition-colors duration-300">
+            <button className="mr-auto text-xs md:text-sm font-bold px-3 md:px-4 py-1 md:py-2 rounded-md shadow transition-colors duration-300">
               Contact Us
             </button>
-
             <div
-              className="w-48 rounded-md flex-col dropdown-menu absolute hidden group-hover:flex text-primary-foreground"
+              className="w-36 md:w-48 rounded-md flex-col dropdown-menu absolute hidden group-hover:flex text-primary-foreground"
               style={{ background: temperatureColor }}
             >
               <ul className="py-1">
                 <li>
                   <Link
                     href="mailto:brittokevin.04@gmail.com"
-                    className="block px-4 py-2 hover:bg-gray-100 hover-glowing-button"
+                    className="block px-3 md:px-4 py-2 hover:bg-gray-100 hover-glowing-button"
                   >
                     Email
                   </Link>
@@ -135,7 +135,7 @@ export function HomePageNew1() {
                 <li>
                   <Link
                     href="tel:+1234567890" /* Temporary number */
-                    className="block px-4 py-2 hover:bg-gray-100 hover-glowing-button"
+                    className="block px-3 md:px-4 py-2 hover:bg-gray-100 hover-glowing-button"
                   >
                     Contact Number
                   </Link>
@@ -143,7 +143,7 @@ export function HomePageNew1() {
                 <li>
                   <Link
                     href="https://wa.me/9284281752"
-                    className="block px-4 py-2 hover:bg-gray-100 hover-glowing-button"
+                    className="block px-3 md:px-4 py-2 hover:bg-gray-100 hover-glowing-button"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -153,53 +153,51 @@ export function HomePageNew1() {
               </ul>
             </div>
           </div>
-        </div>
-        <div className="absolute right-0 top-0 flex space-x-4 p-4">
-          <Link
-            href="https://instagram.com/kev_x_25"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="./instagram.png"
-              alt="Instagram"
-              width={40} // Adjust size as needed
-              height={40} // Adjust size as needed
-              className="hover:opacity-20"
-            />
-          </Link>
-          <Link
-            href="https://twitter.com/KevinBritt47414"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="./twitter.png"
-              alt="Twitter"
-              width={40} // Adjust size as needed
-              height={40} // Adjust size as needed
-              className="hover:opacity-20"
-            />
-          </Link>
+          <div className="flex space-x-2 md:space-x-4 p-2 md:p-4">
+            <Link
+              href="https://instagram.com/kev_x_25"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="./instagram.png"
+                alt="Instagram"
+                width={30} // Adjust size as needed
+                height={30} // Adjust size as needed
+                className="hover:opacity-70"
+              />
+            </Link>
+            <Link
+              href="https://twitter.com/KevinBritt47414"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src="./twitter.png"
+                alt="Twitter"
+                width={30} // Adjust size as needed
+                height={30} // Adjust size as needed
+                className="hover:opacity-70"
+              />
+            </Link>
+          </div>
         </div>
       </header>
 
       {/* Main Container */}
-      <div className="flex flex-col items-center justify-center min-h-screen pt-20 pb-10 px-4">
+      <div className="flex flex-col items-center justify-center min-h-screen pt-20 pb-10 px-4 md:px-8">
         {/* Search Input */}
         <div
-          className="max-w-lg w-full p-8 rounded-lg shadow-lg glowing-button"
+          className="w-full max-w-lg p-4 md:p-8 rounded-lg shadow-lg glowing-button"
           style={{ background: temperatureColor }}
         >
-          <div className="relative flex items-center w-full">
-            <Input
-              type="text"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              placeholder="Search for a city..."
-              className="pl-10 pr-4 py-2 rounded-md bg-muted text-black font-extrabold w-full focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-          </div>
+          <Input
+            type="text"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            placeholder="Search for a city..."
+            className="pl-10 pr-4 py-2 rounded-md bg-muted text-black font-extrabold w-full focus:outline-none focus:ring-2 focus:ring-primary"
+          />
           <br />
 
           {/* Weather Info Section */}
@@ -209,22 +207,22 @@ export function HomePageNew1() {
                 <Image
                   src="./weather.png"
                   alt="Weather Icon"
-                  width={80} // Adjust size as needed
-                  height={80} // Adjust size as needed
+                  width={60} // Adjust size as needed
+                  height={60} // Adjust size as needed
                   className="object-cover"
                 />
                 <div>
-                  <div className="text-4xl font-bold text-black">
+                  <div className="text-3xl md:text-4xl font-bold text-black">
                     {weather.current?.temp_c || "N/A"}°C
                   </div>
-                  <div className="text-lg text-black">
+                  <div className="text-base md:text-lg text-black">
                     {weather.current?.condition?.text || "N/A"}
                   </div>
                 </div>
               </div>
 
               <div className="text-right text-black">
-                <div className="text-lg md:text-xl font-bold">
+                <div className="text-base md:text-lg font-bold">
                   {weather.location?.name || "N/A"}
                 </div>
                 <div>
@@ -240,44 +238,45 @@ export function HomePageNew1() {
 
           {/* Weather Stats */}
           {weather && (
-            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <Card className="bg-muted text-black p-4 rounded-md flex justify-between items-center">
                 <div>
-                  <div className="text-lg font-bold">Humidity</div>
-                  <div className="text-2xl font-bold">
+                  <div className="text-base md:text-lg font-bold">Humidity</div>
+                  <div className="text-xl md:text-2xl font-bold">
                     {weather?.current?.humidity || "N/A"}%
                   </div>
                 </div>
-                <DropletIcon className="w-8 h-8" />
+                <DropletIcon className="w-6 md:w-8 h-6 md:h-8" />
               </Card>
 
               <Card className="bg-muted text-black p-4 rounded-md flex justify-between items-center">
                 <div>
-                  <div className="text-lg font-bold">Wind</div>
-                  <div className="text-2xl font-bold">
+                  <div className="text-base md:text-lg font-bold">Wind</div>
+                  <div className="text-xl md:text-2xl font-bold">
                     {weather?.current?.wind_kph || "N/A"} kph
                   </div>
                 </div>
-                <WindIcon className="w-8 h-8" />
-              </Card>
-              <Card className="bg-muted text-black p-4 rounded-md flex justify-between items-center">
-                <div>
-                  <div className="text-lg font-bold">Pressure</div>
-                  <div className="text-2xl font-bold">
-                    {weather?.current?.pressure_mb || "N/A"} mb
-                  </div>
-                </div>
-                <GaugeIcon className="w-8 h-8" />
+                <WindIcon className="w-6 md:w-8 h-6 md:h-8" />
               </Card>
 
               <Card className="bg-muted text-black p-4 rounded-md flex justify-between items-center">
                 <div>
-                  <div className="text-lg font-bold">UV Index</div>
-                  <div className="text-2xl font-bold">
+                  <div className="text-base md:text-lg font-bold">Pressure</div>
+                  <div className="text-xl md:text-2xl font-bold">
+                    {weather?.current?.pressure_mb || "N/A"} mb
+                  </div>
+                </div>
+                <GaugeIcon className="w-6 md:w-8 h-6 md:h-8" />
+              </Card>
+
+              <Card className="bg-muted text-black p-4 rounded-md flex justify-between items-center">
+                <div>
+                  <div className="text-base md:text-lg font-bold">UV Index</div>
+                  <div className="text-xl md:text-2xl font-bold">
                     {weather?.current?.uv || "N/A"}
                   </div>
                 </div>
-                <SunIcon className="w-8 h-8" />
+                <SunIcon className="w-6 md:w-8 h-6 md:h-8" />
               </Card>
             </div>
           )}
