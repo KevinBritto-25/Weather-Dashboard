@@ -1,21 +1,40 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { DropletIcon, GaugeIcon, SunIcon, WindIcon } from "@/components/icons";
 import Link from "next/link";
+import Image from "next/image";
 import "tailwindcss/tailwind.css";
+
+// Define an interface for weather data
+interface WeatherData {
+  current: {
+    temp_c: number;
+    condition: {
+      text: string;
+    };
+    humidity: number;
+    wind_kph: number;
+    pressure_mb: number;
+    uv: number;
+    last_updated: string;
+  };
+  location: {
+    name: string;
+  };
+}
 
 export function HomePageNew1() {
   const [city, setCity] = useState("");
-  const [weather, setWeather] = useState<any>(null);
+  const [weather, setWeather] = useState<WeatherData | null>(null);
   const [temperatureColor, setTemperatureColor] = useState(
     "linear-gradient(to left, #e1ec43, #e1ee5d, #e1f173, #e2f287, #e3f49a, #e2f49b, #e2f59c, #e1f59d, #def48c, #daf27a, #d7f166, #d4ef51)"
   );
 
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const fetchWeatherData = async () => {
+  const fetchWeatherData = useCallback(async () => {
     if (!city) return;
 
     try {
@@ -50,13 +69,13 @@ export function HomePageNew1() {
     } catch (error) {
       console.error("Error fetching weather data:", error);
     }
-  };
+  }, [city]);
 
   useEffect(() => {
     if (city) {
       fetchWeatherData();
     }
-  }, [city]);
+  }, [city, fetchWeatherData]); // Added fetchWeatherData to dependencies
 
   useEffect(() => {
     const container = containerRef.current;
@@ -93,7 +112,7 @@ export function HomePageNew1() {
         style={{ background: temperatureColor }}
       >
         <h1 className="text-2xl font-extrabold mono-font">Weather Dashboard</h1>
-        <br></br>
+        <br />
         <div className="relative w-full flex items-center justify-left">
           <div className="relative group">
             <button className="mr-auto text-sm font-bold px-4 py-2 rounded-md shadow transition-colors duration-300">
@@ -108,7 +127,7 @@ export function HomePageNew1() {
                 <li>
                   <Link
                     href="mailto:brittokevin.04@gmail.com"
-                    className="block px-4 py-2 hover:bg-gray-100 hover-glowing-button "
+                    className="block px-4 py-2 hover:bg-gray-100 hover-glowing-button"
                   >
                     Email
                   </Link>
@@ -141,10 +160,12 @@ export function HomePageNew1() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img
-              src="./instagram.png"
+            <Image
+              src="/instagram.png"
               alt="Instagram"
-              className="w-10 h-10 hover:opacity-20"
+              width={40} // Adjust size as needed
+              height={40} // Adjust size as needed
+              className="hover:opacity-20"
             />
           </Link>
           <Link
@@ -152,10 +173,12 @@ export function HomePageNew1() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img
-              src="./twitter.png"
+            <Image
+              src="/twitter.png"
               alt="Twitter"
-              className="w-10 h-10 hover:opacity-20"
+              width={40} // Adjust size as needed
+              height={40} // Adjust size as needed
+              className="hover:opacity-20"
             />
           </Link>
         </div>
@@ -165,7 +188,7 @@ export function HomePageNew1() {
       <div className="flex flex-col items-center justify-center min-h-screen pt-20 pb-10 px-4">
         {/* Search Input */}
         <div
-          className="max-w-lg w-full p-8 rounded-lg shadow-lg glowing-button "
+          className="max-w-lg w-full p-8 rounded-lg shadow-lg glowing-button"
           style={{ background: temperatureColor }}
         >
           <div className="relative flex items-center w-full">
@@ -183,10 +206,12 @@ export function HomePageNew1() {
           {weather && (
             <div className="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0 md:space-x-6">
               <div className="flex items-center space-x-4">
-                <img
-                  src="./weather.png"
+                <Image
+                  src="/weather.png"
                   alt="Weather Icon"
-                  className="w-20 h-20 object-cover"
+                  width={80} // Adjust size as needed
+                  height={80} // Adjust size as needed
+                  className="object-cover"
                 />
                 <div>
                   <div className="text-4xl font-bold text-black">
