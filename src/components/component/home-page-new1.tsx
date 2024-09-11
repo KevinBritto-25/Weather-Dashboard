@@ -10,8 +10,9 @@ export function HomePageNew1() {
   const [city, setCity] = useState("");
   const [weather, setWeather] = useState<any>(null);
   const [temperatureColor, setTemperatureColor] = useState(
-    "background-image: linear-gradient(to left, #e1ec43, #e1ee5d, #e1f173, #e2f287, #e3f49a, #e2f49b, #e2f59c, #e1f59d, #def48c, #daf27a, #d7f166, #d4ef51)"
+    "linear-gradient(to left, #e1ec43, #e1ee5d, #e1f173, #e2f287, #e3f49a, #e2f49b, #e2f59c, #e1f59d, #def48c, #daf27a, #d7f166, #d4ef51)"
   );
+  const [isHovered, setIsHovered] = useState(false);
 
   const fetchWeatherData = async () => {
     if (!city) return;
@@ -44,7 +45,6 @@ export function HomePageNew1() {
       }
 
       setTemperatureColor(gradient);
-
       document.documentElement.style.setProperty(
         "--temperature-gradient",
         gradient
@@ -61,46 +61,19 @@ export function HomePageNew1() {
     }
   }, [city]);
 
-  useEffect(() => {
-    const buttons = document.querySelectorAll(".hover-glowing-button");
-    const container = document.querySelector(".container");
-
-    buttons.forEach((button) => {
-      if (container) {
-        button.addEventListener("mouseenter", () => {
-          container.classList.add("blurred");
-        });
-
-        button.addEventListener("mouseleave", () => {
-          container.classList.remove("blurred");
-        });
-      }
-    });
-
-    // Clean up the event listeners when the component unmounts
-    return () => {
-      buttons.forEach((button) => {
-        if (container) {
-          button.removeEventListener("mouseenter", () => {
-            container.classList.add("blurred");
-          });
-          button.removeEventListener("mouseleave", () => {
-            container.classList.remove("blurred");
-          });
-        }
-      });
-    };
-  }, []);
-
   return (
-    <main className="container min-h-screen w-full mono-font no-scroll bg-black">
+    <main
+      className={`container min-h-screen w-full mono-font no-scroll bg-black ${
+        isHovered ? "blurred" : ""
+      }`}
+    >
       {/* Header */}
       <header
         className="fixed top-0 left-0 w-full text-primary-foreground items-center bg-opacity-75 py-6 px-8 shadow-lg z-50 non-hover-glowing-button"
         style={{ background: temperatureColor }}
       >
         <h1 className="text-2xl font-extrabold mono-font">Weather Dashboard</h1>
-        <br></br>
+        <br />
         <div className="relative w-full flex items-center justify-left">
           <div className="relative group">
             <button className="mr-auto text-sm font-bold px-4 py-2 rounded-md shadow transition-colors duration-300">
@@ -115,7 +88,9 @@ export function HomePageNew1() {
                 <li>
                   <Link
                     href="mailto:brittokevin.04@gmail.com"
-                    className="block px-4 py-2 hover:bg-gray-100 hover-glowing-button "
+                    className="block px-4 py-2 hover:bg-gray-100 hover-glowing-button"
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
                   >
                     Email
                   </Link>
@@ -124,6 +99,8 @@ export function HomePageNew1() {
                   <Link
                     href="tel:+1234567890" /* Temporary number */
                     className="block px-4 py-2 hover:bg-gray-100 hover-glowing-button"
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
                   >
                     Contact Number
                   </Link>
@@ -134,6 +111,8 @@ export function HomePageNew1() {
                     className="block px-4 py-2 hover:bg-gray-100 hover-glowing-button"
                     target="_blank"
                     rel="noopener noreferrer"
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
                   >
                     Whatsapp
                   </Link>
@@ -149,9 +128,9 @@ export function HomePageNew1() {
             rel="noopener noreferrer"
           >
             <img
-              src="./instagram.png"
+              src="/instagram.png" /* Ensure correct path to your image */
               alt="Instagram"
-              className="w-10 h-10 hover:opacity-20"
+              className="w-10 h-10 hover:opacity-80"
             />
           </Link>
           <Link
@@ -160,9 +139,9 @@ export function HomePageNew1() {
             rel="noopener noreferrer"
           >
             <img
-              src="./twitter.png"
+              src="/twitter.png" /* Ensure correct path to your image */
               alt="Twitter"
-              className="w-10 h-10 hover:opacity-20"
+              className="w-10 h-10 hover:opacity-80"
             />
           </Link>
         </div>
@@ -172,7 +151,7 @@ export function HomePageNew1() {
       <div className="flex flex-col items-center justify-center min-h-screen pt-20 pb-10 px-4">
         {/* Search Input */}
         <div
-          className="max-w-lg w-full p-8 rounded-lg shadow-lg glowing-button "
+          className="max-w-lg w-full p-8 rounded-lg shadow-lg glowing-button"
           style={{ background: temperatureColor }}
         >
           <div className="relative flex items-center w-full">
@@ -191,7 +170,7 @@ export function HomePageNew1() {
             <div className="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0 md:space-x-6">
               <div className="flex items-center space-x-4">
                 <img
-                  src="./weather.png"
+                  src="/weather.png" /* Ensure correct path to your image */
                   alt="Weather Icon"
                   className="w-20 h-20 object-cover"
                 />
