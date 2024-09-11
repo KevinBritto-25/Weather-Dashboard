@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light Mode Colors */
+    --background: linear-gradient(
+      180deg,
+      hsl(210, 30%, 95%),
+      hsl(210, 20%, 90%)
+    );
+    --background: url("/background.png") no-repeat center center / cover;
+    --foreground: hsl(210, 20%, 10%);
+    --card: linear-gradient(
+      180deg,
+      hsl(210, 25%, 88%),
+      hsl(210, 20%, 75%)
+    ); /* Soft metallic finish */
+    --card-foreground: hsl(210, 20%, 10%);
+    --popover: linear-gradient(180deg, hsl(210, 25%, 90%), hsl(210, 20%, 85%));
+    --popover-foreground: hsl(210, 20%, 10%);
+    --primary: linear-gradient(
+      180deg,
+      #007bff,
+      #0056b3
+    ); /* Deep blue with elegant gradient */
+    --primary-foreground: hsl(210, 20%, 100%);
+    --secondary: linear-gradient(
+      180deg,
+      hsl(43, 84%, 70%),
+      hsl(43, 70%, 60%)
+    ); /* Gold accent */
+    --secondary-foreground: hsl(43, 10%, 10%);
+    --muted: linear-gradient(180deg, hsl(210, 50%, 85%), hsl(210, 40%, 80%));
+    --muted-foreground: hsl(210, 20%, 20%);
+    --accent: linear-gradient(180deg, #c0c0c0, #808080); /* Silver  */
+    --accent-foreground: hsl(210, 20%, 10%);
+    --destructive: hsl(0, 80%, 60%);
+    --destructive-foreground: hsl(0, 0%, 100%);
+    --border: hsl(210, 20%, 80%);
+    --input: hsl(210, 30%, 80%);
+    --ring: hsl(43, 90%, 60%); /* Gold rings for input focus */
+    --radius: 1rem;
+    --temperature-gradient: linear-gradient(
+      to right,
+      #ff7e5f,
+      #feb47b
+    ); /* Warm luxury gradient */
+  }
+
+  .dark {
+    /* Dark Mode Colors */
+    --background: linear-gradient(
+      180deg,
+      hsl(210, 20%, 15%),
+      hsl(210, 25%, 20%)
+    );
+    --background: url("/background.png") no-repeat center center / cover;
+    --foreground: hsl(210, 20%, 80%);
+    --card: linear-gradient(
+      180deg,
+      hsl(210, 25%, 25%),
+      hsl(210, 30%, 20%)
+    ); /* Rich dark blue */
+    --card-foreground: hsl(210, 20%, 90%);
+    --popover: linear-gradient(180deg, hsl(210, 25%, 20%), hsl(210, 30%, 25%));
+    --popover-foreground: hsl(210, 20%, 90%);
+    --primary: linear-gradient(
+      180deg,
+      #0056b3,
+      #003366
+    ); /* Elegant darker blues */
+    --primary-foreground: hsl(210, 20%, 100%);
+    --secondary: linear-gradient(
+      180deg,
+      hsl(43, 84%, 60%),
+      hsl(43, 70%, 50%)
+    ); /* Gold for dark mode */
+    --secondary-foreground: hsl(43, 10%, 90%);
+    --muted: linear-gradient(180deg, hsl(210, 20%, 25%), hsl(210, 25%, 30%));
+    --muted-foreground: hsl(210, 20%, 70%);
+    --accent: linear-gradient(180deg, #b0b0b0, #606060); /* Subtle silver */
+    --accent-foreground: hsl(210, 20%, 80%);
+    --destructive: hsl(0, 70%, 50%);
+    --destructive-foreground: hsl(210, 20%, 90%);
+    --border: hsl(209, 41%, 70%);
+    --input: hsl(210, 20%, 30%);
+    --ring: hsl(43, 90%, 60%);
+  }
+
+  @keyframes gradientMove {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .glowing-button {
+    font-weight: bold;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #ffd700, #ff8c00); /* Gold button */
+    color: #fff;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .glowing-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(255, 223, 0, 0.7), 0 0 60px rgba(255, 140, 0, 0.5);
+  }
+
+  .container {
+    position: relative;
+  }
+
+  .container.blurred::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    backdrop-filter: blur(10px);
+    z-index: 1;
+  }
+
+  .hover-glowing-button {
+    position: relative;
+    z-index: 2;
+    border-radius: 12px;
+    transform: scale(1);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 223, 0, 0.7), 0 0 20px rgba(255, 140, 0, 0.5);
+  }
+
+  .hover-glowing-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(255, 223, 0, 0.7), 0 0 60px rgba(255, 140, 0, 0.5);
+  }
+
+  .non-hover-glowing-button {
+    font-weight: bold;
+    background: linear-gradient(90deg, #ffd700, #ff8c00);
+    color: #fff;
+    box-shadow: 0 0 20px rgba(255, 223, 0, 0.7), 0 0 40px rgba(255, 140, 0, 0.5);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    padding: 10px 20px;
+  }
+
+  .temperature-background {
+    background-image: var(--temperature-gradient);
+  }
+
+  .mono-font {
+    font-family: var(--font-geist-mono);
+  }
+
+  body {
+    @apply text-foreground;
+    background-size: 200% 200%;
+    animation: gradientMove 6s ease-in-out infinite;
+    font-family: var(--font-geist-sans);
+  }
+}
