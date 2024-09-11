@@ -161,7 +161,7 @@ export function HomePageNew1() {
             rel="noopener noreferrer"
           >
             <Image
-              src="/instagram.png"
+              src="./instagram.png"
               alt="Instagram"
               width={40} // Adjust size as needed
               height={40} // Adjust size as needed
@@ -174,7 +174,7 @@ export function HomePageNew1() {
             rel="noopener noreferrer"
           >
             <Image
-              src="/twitter.png"
+              src="./twitter.png"
               alt="Twitter"
               width={40} // Adjust size as needed
               height={40} // Adjust size as needed
@@ -207,7 +207,7 @@ export function HomePageNew1() {
             <div className="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0 md:space-x-6">
               <div className="flex items-center space-x-4">
                 <Image
-                  src="/weather.png"
+                  src="./weather.png"
                   alt="Weather Icon"
                   width={80} // Adjust size as needed
                   height={80} // Adjust size as needed
