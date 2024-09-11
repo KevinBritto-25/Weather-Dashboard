@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { DropletIcon, GaugeIcon, SunIcon, WindIcon } from "@/components/icons";
@@ -12,7 +12,8 @@ export function HomePageNew1() {
   const [temperatureColor, setTemperatureColor] = useState(
     "linear-gradient(to left, #e1ec43, #e1ee5d, #e1f173, #e2f287, #e3f49a, #e2f49b, #e2f59c, #e1f59d, #def48c, #daf27a, #d7f166, #d4ef51)"
   );
-  const [isHovered, setIsHovered] = useState(false);
+
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   const fetchWeatherData = async () => {
     if (!city) return;
@@ -45,10 +46,6 @@ export function HomePageNew1() {
       }
 
       setTemperatureColor(gradient);
-      document.documentElement.style.setProperty(
-        "--temperature-gradient",
-        gradient
-      );
       document.body.style.background = gradient;
     } catch (error) {
       console.error("Error fetching weather data:", error);
@@ -61,11 +58,34 @@ export function HomePageNew1() {
     }
   }, [city]);
 
+  useEffect(() => {
+    const container = containerRef.current;
+    const handleMouseEnter = () => {
+      if (container) container.classList.add("blurred");
+    };
+    const handleMouseLeave = () => {
+      if (container) container.classList.remove("blurred");
+    };
+
+    const buttons = document.querySelectorAll(".hover-glowing-button");
+    buttons.forEach((button) => {
+      button.addEventListener("mouseenter", handleMouseEnter);
+      button.addEventListener("mouseleave", handleMouseLeave);
+    });
+
+    // Clean up event listeners on unmount
+    return () => {
+      buttons.forEach((button) => {
+        button.removeEventListener("mouseenter", handleMouseEnter);
+        button.removeEventListener("mouseleave", handleMouseLeave);
+      });
+    };
+  }, []);
+
   return (
     <main
-      className={`container min-h-screen w-full mono-font no-scroll bg-black ${
-        isHovered ? "blurred" : ""
-      }`}
+      className="container min-h-screen w-full mono-font no-scroll bg-black"
+      ref={containerRef}
     >
       {/* Header */}
       <header
@@ -73,7 +93,7 @@ export function HomePageNew1() {
         style={{ background: temperatureColor }}
       >
         <h1 className="text-2xl font-extrabold mono-font">Weather Dashboard</h1>
-        <br />
+        <br></br>
         <div className="relative w-full flex items-center justify-left">
           <div className="relative group">
             <button className="mr-auto text-sm font-bold px-4 py-2 rounded-md shadow transition-colors duration-300">
@@ -88,9 +108,7 @@ export function HomePageNew1() {
                 <li>
                   <Link
                     href="mailto:brittokevin.04@gmail.com"
-                    className="block px-4 py-2 hover:bg-gray-100 hover-glowing-button"
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}
+                    className="block px-4 py-2 hover:bg-gray-100 hover-glowing-button "
                   >
                     Email
                   </Link>
@@ -99,8 +117,6 @@ export function HomePageNew1() {
                   <Link
                     href="tel:+1234567890" /* Temporary number */
                     className="block px-4 py-2 hover:bg-gray-100 hover-glowing-button"
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}
                   >
                     Contact Number
                   </Link>
@@ -111,8 +127,6 @@ export function HomePageNew1() {
                     className="block px-4 py-2 hover:bg-gray-100 hover-glowing-button"
                     target="_blank"
                     rel="noopener noreferrer"
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}
                   >
                     Whatsapp
                   </Link>
@@ -128,9 +142,9 @@ export function HomePageNew1() {
             rel="noopener noreferrer"
           >
             <img
-              src="/instagram.png" /* Ensure correct path to your image */
+              src="./instagram.png"
               alt="Instagram"
-              className="w-10 h-10 hover:opacity-80"
+              className="w-10 h-10 hover:opacity-20"
             />
           </Link>
           <Link
@@ -139,9 +153,9 @@ export function HomePageNew1() {
             rel="noopener noreferrer"
           >
             <img
-              src="/twitter.png" /* Ensure correct path to your image */
+              src="./twitter.png"
               alt="Twitter"
-              className="w-10 h-10 hover:opacity-80"
+              className="w-10 h-10 hover:opacity-20"
             />
           </Link>
         </div>
@@ -151,7 +165,7 @@ export function HomePageNew1() {
       <div className="flex flex-col items-center justify-center min-h-screen pt-20 pb-10 px-4">
         {/* Search Input */}
         <div
-          className="max-w-lg w-full p-8 rounded-lg shadow-lg glowing-button"
+          className="max-w-lg w-full p-8 rounded-lg shadow-lg glowing-button "
           style={{ background: temperatureColor }}
         >
           <div className="relative flex items-center w-full">
@@ -170,7 +184,7 @@ export function HomePageNew1() {
             <div className="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0 md:space-x-6">
               <div className="flex items-center space-x-4">
                 <img
-                  src="/weather.png" /* Ensure correct path to your image */
+                  src="./weather.png"
                   alt="Weather Icon"
                   className="w-20 h-20 object-cover"
                 />
@@ -221,7 +235,6 @@ export function HomePageNew1() {
                 </div>
                 <WindIcon className="w-8 h-8" />
               </Card>
-
               <Card className="bg-muted text-black p-4 rounded-md flex justify-between items-center">
                 <div>
                   <div className="text-lg font-bold">Pressure</div>
