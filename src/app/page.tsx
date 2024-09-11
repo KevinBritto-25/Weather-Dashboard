@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { HomePageNew1 } from "../components/component/home-page-new1";
 export default function Home() {
   return (
